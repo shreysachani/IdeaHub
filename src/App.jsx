@@ -9,6 +9,7 @@ import SearchView from "./pages/SearchView";
 import NotificationsView from "./pages/NotificationsView";
 import ProfileView from "./pages/ProfileView";
 import CreatePostView from "./pages/CreatePostView";
+import PostView from "./pages/PostView";
 // Components (import lazy for code-splitting)
 
 // const FeedView = lazy(() => import("../pages/FeedView"));
@@ -38,6 +39,7 @@ function App() {
               <Route path="notifications" element={<NotificationsView />} />
               <Route path="createpost" element={<CreatePostView />} />
               <Route path="/profile/:id" element={<ProfileView />} />
+              <Route path="postview/:id" element={<PostView />} />
           </Route>
           
           {/* <Route path="/feed" element={<FeedView />} />
