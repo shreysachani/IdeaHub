@@ -20,18 +20,20 @@ const Layout = () => {
 
   return (
     <>
-      <nav className="py-10 px-8 border-b border-gray-200">
+      <nav className="py-3 px-8 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
             <div className="menu-left">
-              <Link to="#" className="text-xl">Wey</Link>
+              <Link to="#" className="text-lg">
+                <span>Ideahub</span>
+                {/* <img src="/ideahub.png" alt="" className='h-10'/> */}
+              </Link>
             </div>
 
             <div className="menu-center flex space-x-12">
               {user.isAuthenticated && (
                 <>
                   <Link to="/feed" className="text-purple-700">Feed</Link>
-                  <Link to="/chat">Chat</Link>
                   <Link to="/notifications">Notifications</Link>
                   <Link to="/search">Search</Link>
                 </>

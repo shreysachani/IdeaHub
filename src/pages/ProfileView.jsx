@@ -57,7 +57,7 @@ const ProfileView = () => {
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
       <div className="main-left col-span-1">
         <div className="p-4 bg-white border border-gray-200 text-center rounded-lg">
-          <img src={user.avatar} alt="User Avatar" className="mb-6 rounded-full" />
+          <img src={user.avatar} alt="User Avatar" className="mb-6 rounded-full mx-auto" />
           <p>
             <strong>{user.name}</strong>
           </p>
@@ -109,14 +109,16 @@ const ProfileView = () => {
         )}
 
         {posts.map((post) => (
-          <div key={post.id} className="p-4 bg-white border border-gray-200 rounded-lg">
+
+          <div key={post.id} className="bg-white border border-gray-200 rounded-lg">
             <FeedItem post={post} onDeletePost={deletePost} />
+
           </div>
         ))}
       </div>
 
       <div className="main-right col-span-1 space-y-4">
-        <PeopleYouMayKnow />
+        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>
