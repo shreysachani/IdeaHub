@@ -67,7 +67,7 @@ const FeedForm = ({ user, posts, setPosts }) => {
           />
           Attach image
         </label>
-        <button type="submit" className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">
+        <button type="submit" className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg bg-theme">
           Post
         </button>
       </div>

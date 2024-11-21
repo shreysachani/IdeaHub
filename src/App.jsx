@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Signup from "./pages/Signup";
 import HomeView from "./pages/HomeView"
@@ -32,16 +32,17 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-              <Route index element={<HomeView />} />
+              <Route index element={<FeedView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/feed" element={<FeedView />} />
+              {/* <Route path="/feed" element={<FeedView />} /> */}
               <Route path="/search" element={<SearchView />} />
               <Route path="/notifications" element={<NotificationsView />} />
               <Route path="/createpost" element={<CreatePostView />} />
               <Route path="/profile/:id" element={<ProfileView />} />
               <Route path="/postview/:id" element={<PostView />} />
               <Route path="/trends/:id" element={<TrendView />} />
+              <Route path="*" element={<Navigate to='/' replace />} />
           </Route>
           
           {/* <Route path="/feed" element={<FeedView />} />
