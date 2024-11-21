@@ -20,7 +20,7 @@ const PeopleYouMayKnow = () => {
 
   return (
     <div className="p-4 bg-white border border-gray-200 rounded-lg">
-      <h3 className="mb-6 text-xl">People you may know</h3>
+      <h3 className="text-xl">People you may know</h3>
 
       <div className="space-y-4">
         {users.map((user) => (

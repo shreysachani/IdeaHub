@@ -51,16 +51,20 @@ const FeedForm = ({ user, posts, setPosts }) => {
           className="p-4 w-full bg-gray-100 rounded-lg"
           placeholder="What are you thinking about?"
         />
-        <label>
+        {/* <label>
           <input type="checkbox" checked={isPrivate} onChange={() => setIsPrivate(!isPrivate)} />
           Private
-        </label>
+        </label> */}
         {url && <div id="preview"><img src={url} className="w-[100px] mt-3 rounded-xl" alt="preview" /></div>}
       </div>
 
       <div className="p-4 border-t border-gray-100 flex justify-between">
-        <label className="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg">
-          <input type="file" onChange={onFileChange} />
+        <label className="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg cursor-pointer">
+          <input
+            type="file"
+            onChange={onFileChange}
+            className="hidden" // Hides the default input
+          />
           Attach image
         </label>
         <button type="submit" className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">

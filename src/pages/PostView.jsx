@@ -73,7 +73,7 @@ const PostView = () => {
       {/* Main Center */}
       <div className="main-center col-span-3 space-y-4">
         {post.id && (
-          <div className="p-4 bg-white border border-gray-200 rounded-lg">
+          <div className="bg-white border border-gray-200 rounded-lg">
             <FeedItem post={post} />
           </div>
         )}
