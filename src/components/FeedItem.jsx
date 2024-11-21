@@ -1,27 +1,70 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
- // Toast component to show messages
+import { useDispatch, useSelector } from "react-redux";
+import { setToken, removeToken } from '../stores/userSlice';
+import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs'; // Importing thumbs-up and thumbs-down icons
 
-const FeedItem = ({ post, userStore, onDeletePost }) => {
+const FeedItem = ({ post, onDeletePost }) => {
   const [showExtraModal, setShowExtraModal] = useState(false);
+  const [localPost, setLocalPost] = useState(post); // Local state for the post
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
-  // Helper to show toast
   const showToast = (message, type = "success") => {
-    Toast.show({ message, type });
+    dispatch({
+      type: "toast/showToast",
+      payload: { ms: 3000, message, classes: `toast-${type}` }
+    });
   };
 
   const likePost = async (id) => {
     try {
       const response = await axios.post(`/api/posts/${id}/like/`);
       if (response.data.message === "like created") {
-        post.likes_count += 1;
+        // If the user has already disliked, decrease dislike count
+        if (localPost.dislikes_count > 0) {
+          setLocalPost((prevPost) => ({
+            ...prevPost,
+            dislikes_count: prevPost.dislikes_count - 1, // Decrease dislike count
+            likes_count: prevPost.likes_count + 1, // Increase like count
+          }));
+        } else {
+          setLocalPost((prevPost) => ({
+            ...prevPost,
+            likes_count: prevPost.likes_count + 1, // Increase like count
+          }));
+        }
         showToast("You liked the post!", "success");
       }
     } catch (error) {
       showToast("Error liking post.", "error");
     }
-  };  
+  };
+
+  const dislikePost = async (id) => {
+    try {
+      const response = await axios.post(`/api/posts/${id}/dislike/`);
+      if (response.data.message === "Post Dislike") {
+        // If the user has already liked, decrease like count
+        if (localPost.likes_count > 0) {
+          setLocalPost((prevPost) => ({
+            ...prevPost,
+            likes_count: prevPost.likes_count - 1, // Decrease like count
+            dislikes_count: prevPost.dislikes_count + 1, // Increase dislike count
+          }));
+        } else {
+          setLocalPost((prevPost) => ({
+            ...prevPost,
+            dislikes_count: prevPost.dislikes_count + 1, // Increase dislike count
+          }));
+        }
+        showToast("You disliked the post!", "success");
+      }
+    } catch (error) {
+      showToast("Error disliking post.", "error");
+    }
+  };
 
   const reportPost = async () => {
     try {
@@ -43,7 +86,7 @@ const FeedItem = ({ post, userStore, onDeletePost }) => {
   };
 
   const toggleExtraModal = () => {
-    setShowExtraModal(!showExtraModal);
+    setShowExtraModal(prev => !prev);
   };
 
   return (
@@ -52,26 +95,26 @@ const FeedItem = ({ post, userStore, onDeletePost }) => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
           <img
-            src={post.created_by.get_avatar}
+            src={localPost.created_by.get_avatar}
             alt="avatar"
             className="w-10 h-10 rounded-full"
           />
           <div>
             <Link
-              to={`/profile/${post.created_by.id}`}
+              to={`/profile/${localPost.created_by.id}`}
               className="font-semibold text-gray-800"
             >
-              {post.created_by.name}
+              {localPost.created_by.name}
             </Link>
-            <p className="text-sm text-gray-500">{post.created_at_formatted} ago</p>
+            <p className="text-sm text-gray-500">{localPost.created_at_formatted} ago</p>
           </div>
         </div>
       </div>
 
       {/* Attachments */}
-      {post.attachments.length > 0 && (
+      {localPost.attachments.length > 0 && (
         <div className="mb-4">
-          {post.attachments.map((image) => (
+          {localPost.attachments.map((image) => (
             <img
               key={image.id}
               src={image.get_image}
@@ -83,7 +126,7 @@ const FeedItem = ({ post, userStore, onDeletePost }) => {
       )}
 
       {/* Body */}
-      <p className="text-gray-700 mb-4">{post.body}</p>
+      <p className="text-gray-700 mb-4">{localPost.body}</p>
 
       {/* Footer */}
       <div className="flex items-center justify-between">
@@ -91,29 +134,25 @@ const FeedItem = ({ post, userStore, onDeletePost }) => {
         <div className="flex items-center space-x-6">
           {/* Like */}
           <button
-            onClick={() => likePost(post.id)}
+            onClick={() => likePost(localPost.id)}
             className="flex items-center space-x-2 text-gray-600 hover:text-blue-500"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
-            <span>{post.likes_count} likes</span>
+            <BsHandThumbsUp className="w-6 h-6" />
+            <span>{localPost.likes_count} likes</span>
+          </button>
+
+          {/* Dislike */}
+          <button
+            onClick={() => dislikePost(localPost.id)}
+            className="flex items-center space-x-2 text-gray-600 hover:text-red-500"
+          >
+            <BsHandThumbsDown className="w-6 h-6" />
+            <span>{localPost.dislikes_count} dislikes</span>
           </button>
 
           {/* Comments */}
           <Link
-            to={`/postview/${post.id}`}
+            to={`/postview/${localPost.id}`}
             className="flex items-center space-x-2 text-gray-600 hover:text-blue-500"
           >
             <svg
@@ -127,73 +166,28 @@ const FeedItem = ({ post, userStore, onDeletePost }) => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 17.25c.167 1.315.87 2.57 1.79 3.356A8.506 8.506 0 0012 20.25z"
               />
             </svg>
-            <span>{post.comments_count} comments</span>
+            <span>{localPost.comments_count} comments</span>
           </Link>
-
-          {/* Private Indicator */}
-          {post.is_private && (
-            <div className="flex items-center space-x-2 text-gray-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
-                />
-              </svg>
-              <span>Private</span>
-            </div>
-          )}
         </div>
 
-        {/* Extra Modal */}
-        <div className="relative">
-          <button onClick={toggleExtraModal} className="text-gray-600 hover:text-gray-800">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-              />
-            </svg>
+        {/* Extra actions */}
+        {user?.id === post.created_by.id && (
+          <button onClick={toggleExtraModal} className="text-gray-600 hover:text-blue-500">
+            More
           </button>
-
-          {showExtraModal && (
-            <div className="absolute right-0 mt-2 bg-white border rounded shadow-lg">
-              <button
-                onClick={reportPost}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-              >
-                Report
-              </button>
-              {userStore.user.id === post.created_by.id && (
-                <button
-                  onClick={deletePost}
-                  className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left"
-                >
-                  Delete
-                </button>
-              )}
-            </div>
-          )}
-        </div>
+        )}
       </div>
+
+      {/* Extra modal */}
+      {showExtraModal && (
+        <div className="absolute top-0 right-0 bg-white shadow-lg rounded-lg p-4">
+          <button onClick={deletePost} className="text-red-500">Delete</button>
+          <button onClick={reportPost} className="text-blue-500">Report</button>
+        </div>
+      )}
     </div>
   );
 };

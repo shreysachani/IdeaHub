@@ -1,6 +1,5 @@
-// src/components/FeedView.js
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import FeedForm from '../components/FeedForm';
 import FeedItem from '../components/FeedItem';
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow';
@@ -8,7 +7,6 @@ import Trends from '../components/Trends';
 
 const FeedView = () => {
   const [posts, setPosts] = useState([]);
-  const [body, setBody] = useState(''); // Assuming body is for some form submission
 
   useEffect(() => {
     getFeed();
@@ -24,7 +22,7 @@ const FeedView = () => {
   };
 
   const deletePost = (id) => {
-    setPosts(posts.filter(post => post.id !== id));
+    setPosts(posts.filter(post => post.id !== id));  // This ensures the post is immediately removed from the UI
   };
 
   return (
@@ -39,7 +37,7 @@ const FeedView = () => {
             key={post.id}
             className="p-4 bg-white border border-gray-200 rounded-lg"
           >
-            <FeedItem post={post} deletePost={deletePost} />
+            <FeedItem post={post} onDeletePost={deletePost} />
           </div>
         ))}
       </div>
