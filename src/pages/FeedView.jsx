@@ -37,7 +37,7 @@ const FeedView = () => {
         {posts.map(post => (
           <div
             key={post.id}
-            className="p-4 bg-white border border-gray-200 rounded-lg"
+            className="bg-white border border-gray-200 rounded-lg"
           >
             <FeedItem post={post} deletePost={deletePost} />
           </div>
@@ -45,7 +45,7 @@ const FeedView = () => {
       </div>
 
       <div className="main-right col-span-1 space-y-4">
-        <PeopleYouMayKnow />
+        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>

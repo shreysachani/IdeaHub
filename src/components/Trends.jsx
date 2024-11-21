@@ -1,24 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Trends = () => {
   const [trends, setTrends] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/posts/trends/')
-      .then(response => setTrends(response.data))
-      .catch(error => console.error('Error:', error));
+    axios
+      .get("/api/posts/trends/")
+      .then((response) => setTrends(response.data))
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   return (
-    <div>
-      <h2>Trending Hashtags</h2>
-      <ul>
+    <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+      <h3 className="mb-4 text-lg font-bold">Trends</h3>
+      <ul className="space-y-4">
         {trends.map((trend) => (
-          <li key={trend.id}>
-            <Link to={`/trendview/${trend.id}`}>
-              #{trend.hashtag} ({trend.posts_count} posts)
+          <li
+            key={trend.id}
+            className="flex items-center justify-between text-sm"
+          >
+            <div>
+              <span className="font-medium text-gray-800">
+                #{trend.hashtag}
+              </span>
+              <p className="text-gray-500">{trend.posts_count} posts</p>
+            </div>
+            <Link
+              to={`/trends/${trend.hashtag}`}
+              className="px-4 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600"
+            >
+              Explore
             </Link>
           </li>
         ))}
