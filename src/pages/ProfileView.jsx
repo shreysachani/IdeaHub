@@ -57,19 +57,19 @@ const ProfileView = () => {
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
       <div className="main-left col-span-1">
         <div className="p-4 bg-white border border-gray-200 text-center rounded-lg">
-          <img src={user.avatar} alt="User Avatar" className="mb-6 rounded-full mx-auto" />
+          <img src={userState.get_avatar} alt="User Avatar" className="mb-6 rounded-full mx-auto" />
           <p>
-            <strong>{user.name}</strong>
+            <strong>{userState.name}</strong>
           </p>
 
-          {user.id && (
+          {/* {userState.id && (
             <div className="mt-6 flex space-x-8 justify-around">
-              <a href={`/friends/${user.id}`} className="text-xs text-gray-500">
-                {user.friends_count} friends
+              <a href={`/friends/${userState.id}`} className="text-xs text-gray-500">
+                {userState.friends_count} friends
               </a>
-              <p className="text-xs text-gray-500">{user.posts_count} posts</p>
+              <p className="text-xs text-gray-500">{userState.posts_count} posts</p>
             </div>
-          )}
+          )} */}
 
           <div className="mt-6">
             {userState.id !== user.id && (

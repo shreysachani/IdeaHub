@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, removeToken } from '../stores/userSlice';
 import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs'; // Importing thumbs-up and thumbs-down icons
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const FeedItem = ({ post, onDeletePost }) => {
   const [showExtraModal, setShowExtraModal] = useState(false);
@@ -90,7 +91,7 @@ const FeedItem = ({ post, onDeletePost }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg shadow-md p-6 relative">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
@@ -176,16 +177,16 @@ const FeedItem = ({ post, onDeletePost }) => {
         {/* Extra actions */}
         {user?.id === post.created_by.id && (
           <button onClick={toggleExtraModal} className="text-gray-600 hover:text-blue-500">
-            More
+            <BsThreeDotsVertical />
           </button>
         )}
       </div>
 
       {/* Extra modal */}
       {showExtraModal && (
-        <div className="absolute top-0 right-0 bg-white shadow-lg rounded-lg p-4">
-          <button onClick={deletePost} className="text-red-500">Delete</button>
-          <button onClick={reportPost} className="text-blue-500">Report</button>
+        <div className="absolute right-7 bottom-[-10] z-10 bg-white shadow-lg rounded-lg  flex flex-col border">
+          <button onClick={deletePost} className="text-red-500 p-3 border-b-2">Delete</button>
+          <button onClick={reportPost} className="text-blue-500 p-3">Report</button>
         </div>
       )}
     </div>
