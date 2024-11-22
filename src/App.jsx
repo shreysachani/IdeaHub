@@ -11,6 +11,7 @@ import ProfileView from "./pages/ProfileView";
 import CreatePostView from "./pages/CreatePostView";
 import NotificationsView from "./pages/NotificationsView";
 import TrendView from "./pages/TrendView";
+import BookmarkView from "./pages/BookmarkView";
 // Components (import lazy for code-splitting)
 
 // const FeedView = lazy(() => import("../pages/FeedView"));
@@ -42,7 +43,7 @@ function App() {
               <Route path="/profile/:id" element={<ProfileView />} />
               <Route path="/postview/:id" element={<PostView />} />
               <Route path="/trends/:id" element={<TrendView />} />
-              <Route path="/bookmark" element={<TrendView />} />
+              <Route path="/bookmark" element={<BookmarkView />} />
               <Route path="*" element={<Navigate to='/' replace />} />
           </Route>
           
