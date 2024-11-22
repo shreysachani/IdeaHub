@@ -42,6 +42,7 @@ function App() {
               <Route path="/profile/:id" element={<ProfileView />} />
               <Route path="/postview/:id" element={<PostView />} />
               <Route path="/trends/:id" element={<TrendView />} />
+              <Route path="/bookmark" element={<TrendView />} />
               <Route path="*" element={<Navigate to='/' replace />} />
           </Route>
           

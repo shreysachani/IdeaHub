@@ -29,7 +29,7 @@ const Trends = () => {
             </div>
             <Link
               to={`/trends/${trend.hashtag}`}
-              className="px-4 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600"
+              className="px-4 py-2 text-white bg-theme rounded-lg hover:bg-theme"
             >
               Explore
             </Link>

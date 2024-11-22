@@ -39,7 +39,7 @@ const PostForm = () => {
           value={postTitle}
           onChange={(e) => setPostTitle(e.target.value)}
           placeholder="Enter post title"
-          className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-theme"
         />
       </div>
 
@@ -49,7 +49,7 @@ const PostForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Enter post description"
-          className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 h-24"
+          className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-theme h-24"
         />
       </div>
 
@@ -70,7 +70,7 @@ const PostForm = () => {
 
       <button
         type="submit"
-        className="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg font-medium"
+        className="w-full bg-theme hover:bg-theme text-white py-2 rounded-lg font-medium"
       >
         Post
       </button>

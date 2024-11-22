@@ -102,7 +102,7 @@ const PostView = () => {
             <div className="p-4 border-t border-gray-100">
               <button
                 type="submit"
-                className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg"
+                className="inline-block py-4 px-6 bg-theme text-white rounded-lg"
               >
                 Comment
               </button>

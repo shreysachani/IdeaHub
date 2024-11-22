@@ -4,13 +4,17 @@ import FeedForm from '../components/FeedForm';
 import FeedItem from '../components/FeedItem';
 import PeopleYouMayKnow from '../components/PeopleYouMayKnow';
 import Trends from '../components/Trends';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const FeedView = () => {
   const [posts, setPosts] = useState([]);
-
+  const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
   useEffect(() => {
+    {!user.isAuthenticated && navigate('/login', {replace: true})}
     getFeed();
-  }, []);
+  }, [user.isAuthenticated, navigate]);
 
   const getFeed = async () => {
     try {

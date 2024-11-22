@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaPaperclip } from "react-icons/fa6";
 
 const FeedForm = ({ user, posts, setPosts }) => {
   const [body, setBody] = useState('');
@@ -48,7 +49,7 @@ const FeedForm = ({ user, posts, setPosts }) => {
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          className="p-4 w-full bg-gray-100 rounded-lg"
+          className="p-4 w-full bg-gray-100 rounded-lg outline-none"
           placeholder="What are you thinking about?"
         />
         {/* <label>
@@ -59,15 +60,15 @@ const FeedForm = ({ user, posts, setPosts }) => {
       </div>
 
       <div className="p-4 border-t border-gray-100 flex justify-between">
-        <label className="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg cursor-pointer">
+        <label className="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg cursor-pointer flex items-center">
           <input
             type="file"
             onChange={onFileChange}
             className="hidden" // Hides the default input
           />
-          Attach image
+          <FaPaperclip /> <span className='pl-2'>Upload</span>
         </label>
-        <button type="submit" className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg bg-theme">
+        <button type="submit" className="inline-block py-4 px-6 bg-theme text-white rounded-lg bg-theme">
           Post
         </button>
       </div>
