@@ -90,7 +90,6 @@ const SearchView = () => {
                   </strong>
                 </p>
                 <div className="mt-6 flex space-x-8 justify-around">
-                  <p className="text-xs text-gray-500">{user.friends_count} friends</p>
                   <p className="text-xs text-gray-500">{user.posts_count} posts</p>
                 </div>
               </div>

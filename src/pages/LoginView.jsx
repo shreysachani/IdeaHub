@@ -61,7 +61,7 @@ const LoginPage = () => {
         <div className="p-12 bg-white border border-gray-200 rounded-lg">
           <h1 className="mb-6 text-2xl">Log in</h1>
           <p className="mb-6 text-gray-500">
-            Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+          Bring your imagination and expertise to a company that's revolutionizing the fintech space.
           </p>
           <p className="font-bold">
             Don't have an account?{" "}

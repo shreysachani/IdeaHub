@@ -25,7 +25,7 @@ const Trends = () => {
               <span className="font-medium text-gray-800">
                 #{trend.hashtag}
               </span>
-              <p className="text-gray-500">{trend.posts_count} posts</p>
+              <p className="text-gray-500">{trend.occurences} posts</p>
             </div>
             <Link
               to={`/trends/${trend.hashtag}`}

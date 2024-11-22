@@ -23,9 +23,14 @@ const BookmarkView = () => {
 
 
   return (
+
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
     {/* Main Center Section */}
     <div className="main-center col-span-3 space-y-4">
+
+            <div className="p-4 bg-white border border-gray-200 rounded-lg">
+          <h2 className="text-xl">Bookmarks</h2>
+    </div>
     <div>
       {bookmarkedpPosts.map((post) => (
           <div
