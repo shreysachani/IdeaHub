@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken, removeToken } from '../stores/userSlice';
-import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs'; // Importing thumbs-up and thumbs-down icons
+import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs';
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { CiBookmark } from "react-icons/ci"; // Importing the bookmark icon
+import { FaBookmark } from "react-icons/fa"
 
 const FeedItem = ({ post, onDeletePost }) => {
   const [showExtraModal, setShowExtraModal] = useState(false);
@@ -23,17 +24,16 @@ const FeedItem = ({ post, onDeletePost }) => {
     try {
       const response = await axios.post(`/api/posts/${id}/like/`);
       if (response.data.message === "like created") {
-        // If the user has already disliked, decrease dislike count
         if (localPost.dislikes_count > 0) {
           setLocalPost((prevPost) => ({
             ...prevPost,
-            dislikes_count: prevPost.dislikes_count - 1, // Decrease dislike count
-            likes_count: prevPost.likes_count + 1, // Increase like count
+            dislikes_count: prevPost.dislikes_count - 1,
+            likes_count: prevPost.likes_count + 1,
           }));
         } else {
           setLocalPost((prevPost) => ({
             ...prevPost,
-            likes_count: prevPost.likes_count + 1, // Increase like count
+            likes_count: prevPost.likes_count + 1,
           }));
         }
         showToast("You liked the post!", "success");
@@ -47,23 +47,41 @@ const FeedItem = ({ post, onDeletePost }) => {
     try {
       const response = await axios.post(`/api/posts/${id}/dislike/`);
       if (response.data.message === "Post Dislike") {
-        // If the user has already liked, decrease like count
         if (localPost.likes_count > 0) {
           setLocalPost((prevPost) => ({
             ...prevPost,
-            likes_count: prevPost.likes_count - 1, // Decrease like count
-            dislikes_count: prevPost.dislikes_count + 1, // Increase dislike count
+            likes_count: prevPost.likes_count - 1,
+            dislikes_count: prevPost.dislikes_count + 1,
           }));
         } else {
           setLocalPost((prevPost) => ({
             ...prevPost,
-            dislikes_count: prevPost.dislikes_count + 1, // Increase dislike count
+            dislikes_count: prevPost.dislikes_count + 1,
           }));
         }
         showToast("You disliked the post!", "success");
       }
     } catch (error) {
       showToast("Error disliking post.", "error");
+    }
+  };
+
+  const bookmarkPost = async (id) => {
+    try {
+      const response = await axios.post(`/api/posts/bookmark/${id}/`);
+      if (response.data.message === "Bookmark created") {
+        setLocalPost((prevPost) => ({
+          ...prevPost,
+          is_bookmarked: true, // Assuming is_bookmarked is part of the post object
+        }));
+      } else if (response.data.message === "Bookmark removed") {
+        setLocalPost((prevPost) => ({
+          ...prevPost,
+          is_bookmarked: false,
+        }));
+      }
+    } catch (error) {
+      showToast("Error bookmarking post.", "error");
     }
   };
 
@@ -80,20 +98,20 @@ const FeedItem = ({ post, onDeletePost }) => {
     try {
       await axios.delete(`/api/posts/${post.id}/delete/`);
       showToast("The post was deleted.", "success");
-      onDeletePost(post.id); // Notify parent about deletion
+      onDeletePost(post.id);
     } catch (error) {
       showToast("Error deleting post.", "error");
     }
   };
 
   const toggleExtraModal = () => {
-    setShowExtraModal(prev => !prev);
+    setShowExtraModal((prev) => !prev);
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 relative">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex justify-between mb-4">
         <div className="flex items-center space-x-4">
           <img
             src={localPost.created_by.get_avatar}
@@ -110,6 +128,11 @@ const FeedItem = ({ post, onDeletePost }) => {
             <p className="text-sm text-gray-500">{localPost.created_at_formatted} ago</p>
           </div>
         </div>
+        {user?.id === post.created_by.id && (
+          <button onClick={toggleExtraModal} className="text-gray-600 hover:text-blue-500 flex items-start">
+            <BsThreeDotsVertical />
+          </button>
+        )}
       </div>
 
       {/* Attachments */}
@@ -151,6 +174,8 @@ const FeedItem = ({ post, onDeletePost }) => {
             <span>{localPost.dislikes_count} dislikes</span>
           </button>
 
+
+
           {/* Comments */}
           <Link
             to={`/postview/${localPost.id}`}
@@ -173,20 +198,27 @@ const FeedItem = ({ post, onDeletePost }) => {
             <span>{localPost.comments_count} comments</span>
           </Link>
         </div>
-
-        {/* Extra actions */}
-        {user?.id === post.created_by.id && (
-          <button onClick={toggleExtraModal} className="text-gray-600 hover:text-blue-500">
-            <BsThreeDotsVertical />
+                  {/* Bookmark */}
+          <button
+            onClick={() => bookmarkPost(localPost.id)}
+            className={`flex items-center space-x-2`}
+          >
+            {localPost.is_bookmarked ? 
+            <FaBookmark className="w-6 h-6 text-theme" />
+            :
+            <CiBookmark className="w-6 h-6" />
+            }
+            {/* <span>{localPost.is_bookmarked ? "Bookmarked" : "Bookmark"}</span> */}
           </button>
-        )}
+        {/* Extra actions */}
+       
       </div>
 
       {/* Extra modal */}
       {showExtraModal && (
-        <div className="absolute right-7 bottom-[-10] z-10 bg-white shadow-lg rounded-lg  flex flex-col border">
-          <button onClick={deletePost} className="text-red-500 p-3 border-b-2">Delete</button>
-          <button onClick={reportPost} className="text-blue-500 p-3">Report</button>
+        <div className="absolute right-[-75px] top-5 z-10 bg-white shadow-lg rounded-lg flex flex-col border">
+          <button onClick={deletePost} className="text-red-500 py-3 px-6 border-b-2">Delete</button>
+          <button onClick={reportPost} className="text-blue-500 px-6 py-3">Report</button>
         </div>
       )}
     </div>
