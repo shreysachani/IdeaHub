@@ -35,7 +35,7 @@ function App() {
               <Route index element={<FeedView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/signup" element={<Signup />} />
-              {/* <Route path="/feed" element={<FeedView />} /> */}
+              <Route path="/feed" element={<FeedView />} />
               <Route path="/search" element={<SearchView />} />
               <Route path="/notifications" element={<NotificationsView />} />
               <Route path="/createpost" element={<CreatePostView />} />

@@ -9,6 +9,8 @@ const SignupPage = () => {  // Using the toast store to show toast notifications
   const [form, setForm] = useState({ email: "", name: "", password1: "", password2: "" });
   const [errors, setErrors] = useState([]);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]); // Clear previous errors
@@ -36,10 +38,11 @@ const SignupPage = () => {  // Using the toast store to show toast notifications
         const response = await axios.post("/api/signup/", form);
         
         if (response.data.message === "success") {
-          toast.success(
-            "The user is registered. Please activate your account by clicking your email link."
-          );
+          toast.success( "User registered successfully.", {
+            position: "bottom-right"
+          });
 
+          navigate("/login");
           // Clear form after successful signup
           setForm({ email: "", name: "", password1: "", password2: "" });
         } else {

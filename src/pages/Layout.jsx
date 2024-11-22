@@ -30,8 +30,8 @@ const Layout = () => {
   const isActiveLink = (path) => location.pathname === path;
 
   return (
-    <div className="h-screen bg-gray-100">
-      <nav className="bg-white shadow-md border-b border-gray-200 sticky">
+    <div className="min-h-screen bg-gray-100">
+      <nav className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-[100]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between py-4">
             {/* Left Section: Logo */}

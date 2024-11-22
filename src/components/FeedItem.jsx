@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BsHandThumbsUp, BsHandThumbsDown } from 'react-icons/bs';
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { CiBookmark } from "react-icons/ci"; // Importing the bookmark icon
-import { FaBookmark } from "react-icons/fa"
+import { CiBookmark } from "react-icons/ci";
+import { FaBookmark } from "react-icons/fa6";
 
 const FeedItem = ({ post, onDeletePost }) => {
   const [showExtraModal, setShowExtraModal] = useState(false);
@@ -36,10 +36,22 @@ const FeedItem = ({ post, onDeletePost }) => {
             likes_count: prevPost.likes_count + 1,
           }));
         }
-        showToast("You liked the post!", "success");
+        // showToast("You liked the post!", "success");
+      }
+      else if (response.data.message === "post already disliked" ) {
+        toast.success( "Post Already Disliked.", {
+          position: "bottom-right"
+        });
+        // showToast("Post Already Disliked.", "success");
+      }
+      else if (response.data.message === "post already liked") {
+        toast.success( "Post Already Liked.", {
+          position: "bottom-right"
+        });
+        // showToast("Post Already Liked.", "success");
       }
     } catch (error) {
-      showToast("Error liking post.", "error");
+      // showToast("Error liking post.", "error");
     }
   };
 
@@ -135,7 +147,6 @@ const FeedItem = ({ post, onDeletePost }) => {
         )}
       </div>
 
-      {/* Attachments */}
       {localPost.attachments.length > 0 && (
         <div className="mb-4">
           {localPost.attachments.map((image) => (
@@ -210,11 +221,9 @@ const FeedItem = ({ post, onDeletePost }) => {
             }
             {/* <span>{localPost.is_bookmarked ? "Bookmarked" : "Bookmark"}</span> */}
           </button>
-        {/* Extra actions */}
        
       </div>
 
-      {/* Extra modal */}
       {showExtraModal && (
         <div className="absolute right-[-75px] top-5 z-10 bg-white shadow-lg rounded-lg flex flex-col border">
           <button onClick={deletePost} className="text-red-500 py-3 px-6 border-b-2">Delete</button>

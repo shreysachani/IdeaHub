@@ -8,7 +8,7 @@ import FeedItem from '../components/FeedItem';
 const TrendView = () => {
   const { id } = useParams(); // Get the `id` parameter from the route
   const [posts, setPosts] = useState([]);
-  
+
   // Fetch posts when the component mounts or the trend ID changes
   useEffect(() => {
     const getFeed = async () => {
@@ -33,11 +33,21 @@ const TrendView = () => {
           <h2 className="text-xl">Trend: #{id}</h2>
         </div>
 
+        {posts.length === 0 
+          &&
+          <div className="flex justify-center items-center p-4 bg-white border border-gray-200 rounded-lg h-96">
+            <div className="text-center">
+              {/* <h2 className="text-xl"> Oops !!! </h2> */}
+              <div className='text-lg'> No Bookmarks added </div>
+            </div>
+          </div>
+        }
+
         {/* Feed Items */}
         {posts.map((post) => (
           <div
             key={post.id}
-            className="p-4 bg-white border border-gray-200 rounded-lg"
+            className="bg-white border border-gray-200 rounded-lg"
           >
             <FeedItem post={post} />
           </div>
@@ -46,7 +56,7 @@ const TrendView = () => {
 
       {/* Right Sidebar Section */}
       <div className="main-right col-span-1 space-y-4">
-        <PeopleYouMayKnow />
+        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>

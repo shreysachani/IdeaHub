@@ -20,7 +20,6 @@ const toastSlice = createSlice({
       state.classes = classes;
       state.isVisible = true;
 
-      // Handle animation logic with setTimeout (same logic as in Vue)
       setTimeout(() => {
         state.classes += ' -translate-y-28';
       }, 10);

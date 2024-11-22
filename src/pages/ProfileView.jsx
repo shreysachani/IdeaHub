@@ -21,7 +21,7 @@ const ProfileView = () => {
 
   useEffect(() => {
     getFeed();
-  }, [id]);
+  }, [id, posts]);
 
   const getFeed = async () => {
     try {
@@ -55,7 +55,7 @@ const ProfileView = () => {
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
-      <div className="main-left col-span-1">
+      <div className="main-left col-span-1 h-min">
         <div className="p-4 bg-white border border-gray-200 text-center rounded-lg">
           <img src={userState.get_avatar} alt="User Avatar" className="mb-6 rounded-full mx-auto" />
           <p>
@@ -118,7 +118,6 @@ const ProfileView = () => {
       </div>
 
       <div className="main-right col-span-1 space-y-4">
-        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>
