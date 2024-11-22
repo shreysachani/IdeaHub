@@ -61,6 +61,16 @@ const SearchView = () => {
           </form>
         </div>
 
+        {(posts.length == 0 && users.length == 0) 
+          &&
+          <div className="flex justify-center items-center p-4 bg-white border border-gray-200 rounded-lg h-96">
+            <div className="text-center">
+              <h2 className="text-xl"> Oops !!! </h2>  
+              <div> No Data found </div>  
+            </div>
+          </div>
+        }
+
         {/* Users Section */}
         {users.length > 0 && (
           <div className="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-4 gap-4">
@@ -101,7 +111,7 @@ const SearchView = () => {
 
       {/* Sidebar */}
       <div className="main-right col-span-1 space-y-4">
-        <PeopleYouMayKnow />
+        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>

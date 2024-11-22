@@ -13,7 +13,7 @@ const Trends = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+    <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md fixed min-w-72">
       <h3 className="mb-4 text-lg font-bold">Trends</h3>
       <ul className="space-y-4">
         {trends.map((trend) => (
