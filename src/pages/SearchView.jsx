@@ -41,7 +41,7 @@ const SearchView = () => {
             />
             <button
               type="submit"
-              className="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg"
+              className="inline-block py-4 px-6 bg-theme text-white rounded-lg"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

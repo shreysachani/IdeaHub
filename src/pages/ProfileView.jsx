@@ -74,7 +74,7 @@ const ProfileView = () => {
           <div className="mt-6">
             {userState.id !== user.id && (
               <button
-                className="inline-block mt-4 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"
+                className="inline-block mt-4 py-4 px-3 bg-theme text-xs text-white rounded-lg"
                 onClick={sendDirectMessage}
               >
                 Send direct message
@@ -83,17 +83,17 @@ const ProfileView = () => {
 
             {userState.id === user.id && (
               <>
-                <a
-                  className="inline-block mr-2 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"
-                  href="/profile/edit"
-                >
-                  Edit profile
-                </a>
                 <button
-                  className="inline-block py-4 px-3 bg-red-600 text-xs text-white rounded-lg"
+                  className="inline-block mr-2 py-4 px-6 bg-gray-600 text-white rounded-lg"
+                  onClick={() => navigate('/profile/edit')}
+                >
+                  Edit
+                </button>
+                <button
+                  className="inline-block py-4 px-3 bg-red-600 text-white rounded-lg"
                   onClick={logout}
                 >
-                  Log out
+                  Logout
                 </button>
               </>
             )}

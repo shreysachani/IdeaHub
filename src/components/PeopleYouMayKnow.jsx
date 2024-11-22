@@ -40,7 +40,7 @@ const PeopleYouMayKnow = () => {
             </div>
             <Link
               to={`/profile/${user.id}`}
-              className="py-2 px-3 bg-purple-600 text-white text-xs rounded-lg"
+              className="py-2 px-3 bg-theme text-white text-xs rounded-lg"
             >
               Show
             </Link>

@@ -23,12 +23,12 @@ const TagsInput = ({ tags, setTags }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Add a tag"
-          className="flex-grow px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="flex-grow px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-theme"
         />
         <button
           type="button"
           onClick={handleAddTag}
-          className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg"
+          className="bg-theme hover:bg-theme text-white px-4 py-2 rounded-lg"
         >
           Add
         </button>

@@ -108,7 +108,7 @@ const LoginPage = () => {
             )}
 
             <div>
-              <button type="submit" className="py-4 px-6 bg-purple-600 text-white rounded-lg">
+              <button type="submit" className="py-4 px-6 bg-theme text-white rounded-lg">
                 Log in
               </button>
             </div>

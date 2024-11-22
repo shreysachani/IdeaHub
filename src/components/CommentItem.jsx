@@ -18,7 +18,7 @@ const CommentItem = ({ comment }) => {
             <strong>
               <Link
                 to={`/profile/${comment.created_by.id}`} // Dynamically generate the profile link
-                className="text-purple-600 hover:underline"
+                className="text-theme hover:underline"
               >
                 {comment.created_by.name}
               </Link>
