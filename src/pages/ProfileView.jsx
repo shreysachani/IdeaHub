@@ -112,7 +112,6 @@ const ProfileView = () => {
 
           <div key={post.id} className="bg-white border border-gray-200 rounded-lg">
             <FeedItem post={post} onDeletePost={deletePost} />
-
           </div>
         ))}
       </div>

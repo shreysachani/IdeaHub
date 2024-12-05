@@ -1,19 +1,19 @@
-import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";  // For navigation
-import {setToken, setUserInfo} from "../stores/userSlice";  // Assuming the user store is in this path
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {setToken, setUserInfo} from "../stores/userSlice";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();    // For navigation after successful login
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]); // Clear previous errors
+    setErrors([]); 
 
     // Validate the form
     if (form.email === "") {
@@ -67,7 +67,7 @@ const LoginPage = () => {
             Don't have an account?{" "}
             <a href="/signup" className="underline">
               Click here
-            </a>{" "}
+            </a>
             to create one!
           </p>
         </div>

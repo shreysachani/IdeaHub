@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";  // For navigation
 import { showToast } from "../stores/toastSlice";  // Assuming the toast store is in this path
-import { http } from "../api";
 import { toast } from "react-toastify";
 
 const SignupPage = () => {  // Using the toast store to show toast notifications

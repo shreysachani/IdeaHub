@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+
+import Trends from '../components/Trends';
 import FeedForm from '../components/FeedForm';
 import FeedItem from '../components/FeedItem';
-import PeopleYouMayKnow from '../components/PeopleYouMayKnow';
-import Trends from '../components/Trends';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 
 const FeedView = () => {
   const [posts, setPosts] = useState([]);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+
   useEffect(() => {
     {!user.isAuthenticated && navigate('/login', {replace: true})}
     getFeed();
@@ -31,8 +34,8 @@ const FeedView = () => {
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
-      <div className="main-center col-span-3 space-y-4">
-        <div className="bg-white border border-gray-200 rounded-lg">
+      <div className="main-center col-span-3 space-y-4 ">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-lg">
           <FeedForm user={null} posts={posts} setPosts={setPosts} />
         </div>
 
@@ -47,7 +50,6 @@ const FeedView = () => {
       </div>
 
       <div className="main-right col-span-1 space-y-4">
-        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>

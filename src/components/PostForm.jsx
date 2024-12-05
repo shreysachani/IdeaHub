@@ -29,7 +29,7 @@ const PostForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 ">
       <ThumbnailUploader thumbnail={thumbnail} setThumbnail={setThumbnail} />
       
       <div>

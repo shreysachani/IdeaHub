@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // For accessing route parameters
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import PeopleYouMayKnow from '../components/PeopleYouMayKnow'; // Import your components
 import Trends from '../components/Trends';
 import FeedItem from '../components/FeedItem';
 
 const TrendView = () => {
-  const { id } = useParams(); // Get the `id` parameter from the route
+  const { id } = useParams();
   const [posts, setPosts] = useState([]);
 
-  // Fetch posts when the component mounts or the trend ID changes
   useEffect(() => {
     const getFeed = async () => {
       try {
         const response = await axios.get(`/api/posts?trend=${id}`);
         console.log('data', response.data);
-        setPosts(response.data); // Set the fetched posts to the state
+        setPosts(response.data);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
     };
 
-    getFeed(); // Call the function
-  }, [id]); // Run effect whenever `id` changes
+    getFeed();
+  }, [id]);
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4">
@@ -56,7 +54,6 @@ const TrendView = () => {
 
       {/* Right Sidebar Section */}
       <div className="main-right col-span-1 space-y-4">
-        {/* <PeopleYouMayKnow /> */}
         <Trends />
       </div>
     </div>

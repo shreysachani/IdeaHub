@@ -39,40 +39,6 @@ const Layout = () => {
               <img src="/ideahub.png" alt="IdeaHub" className="h-10 mr-2" />
             </Link>
 
-            {/* Center Section: Navigation Links */}
-            {/* <div className="hidden lg:flex space-x-8">
-              {user.isAuthenticated && (
-                <>
-                  <Link
-                    to="/"
-                    className={`font-medium transition ${
-                      isActiveLink("/") ? "text-theme" : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    Feed
-                  </Link>
-                  <Link
-                    to="/notifications"
-                    className={`font-medium transition ${
-                      isActiveLink("/notifications")
-                        ? "text-theme"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    Notifications
-                  </Link>
-                  <Link
-                    to="/search"
-                    className={`font-medium transition ${
-                      isActiveLink("/search") ? "text-theme" : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    Search
-                  </Link>
-                </>
-              )}
-            </div> */}
-
             {/* Right Section: User Actions */}
             <div className="flex items-center space-x-4">
               {user.isAuthenticated ? (
